@@ -1,0 +1,775 @@
+{% block content %}
+
+<head>
+  <!--  Introducing the link to the Bootsrap CDN. -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+  <!--  Introducing the link to the Mapbox CDN. -->
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+  
+
+
+  <!-- Base URL -->
+  <base href="http://127.0.0.1:8000/">
+</head>
+
+
+<!-- Preloading rain overlay images -->
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image1.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image2.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image3.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image4.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image5.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image6.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image7.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image8.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image9.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image10.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image11.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image12.png">
+<link rel="preload" as="image" href="/media/rainfall_overlays/rainfall_image13.png">
+
+
+<!-- Banner -->
+<nav class="navbar navbar-dark bg-dark">
+  <p style="text-align: center; width: 100%;">
+    <a class="navbar-brand" href="/">
+      <img src="/media/logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+      Website Name
+    </a>
+  </p>
+</nav>
+
+
+<!-- Weather map -->
+<div id='map' style="width: 100%; height: 500px;">
+  <script type="text/javascript">
+    mapboxgl.accessToken = '{{mapbox_key|escapejs }}'
+
+    var map = new mapboxgl.Map({
+      container: 'map',
+      maxZoom: 8,
+      minZoom: 4.2,
+      zoom: 4.2,
+      center: [-4.5481, 54.2361],
+      style: 'mapbox://styles/mapbox/dark-v10'
+    });
+
+    map.on('load', function () { 
+      map.addSource("myImageSource", { 
+        "type": "image",
+        "url": "/media/rainfall_overlays/rainfall_image1.png", 
+        "coordinates": [
+          [-12, 61],
+          [5, 61],
+          [5, 48],
+          [-12, 48]
+        ]
+      });
+
+    });
+
+    function reload_map() { 
+      map.removeLayer("overlay"); 
+      map.addLayer({
+        "id": "overlay",
+        "source": "myImageSource",
+        "type": "raster",
+        "paint": {
+        "raster-opacity": 0.6
+        }
+      });
+    };
+
+    function load_img1() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image1.png' });
+      reload_map();
+    };
+
+    function load_img2() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image2.png' });
+      reload_map();
+    };
+
+    function load_img3() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image3.png' });
+      reload_map();
+    };
+
+    function load_img4() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image4.png' });
+      reload_map();
+    };
+
+    function load_img5() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image5.png' });
+      reload_map();
+    };
+
+    function load_img6() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image6.png' });
+      reload_map();
+    };
+
+    function load_img7() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image7.png' });
+      reload_map();
+    };
+
+    function load_img8() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image8.png' });
+      reload_map();
+    };
+
+    function load_img9() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image9.png' });
+      reload_map();
+    };
+
+    function load_img10() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image10.png' });
+      reload_map();
+    };
+
+    function load_img11() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image11.png' });
+      reload_map();
+    };
+
+    function load_img12() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image12.png' });
+      reload_map();
+    };
+
+    function load_img13() {
+      map.getSource('myImageSource').updateImage({ url: '/media/rainfall_overlays/rainfall_image13.png' });
+      reload_map();
+    };
+  </script>
+</div>
+
+
+<!-- Rainfall time selector-->
+<p style="font-size: x-small; text-align: center; margin-bottom: 20px; margin-top: 5px;">Select a time to view the precipitation forecast. (Last updated: Today at 08:00)</p>
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="width: 730px; margin-left:auto; margin-right:auto; margin-top: -15px;">
+  <div class="btn-group mr-3 btn-group-sm" role="group" aria-label="First group" style="display: block;">
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img1()" >09:00</button>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img2()">12:00</button>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img3()">15:00</button>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img4()">18:00</button>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img5()">21:00</button>
+    <b>
+      <p style="font-size: small; text-align: center; margin-top: 2px;"> Today</p>
+    </b>
+  </div>
+
+
+  
+  <div class="btn-group mr-2 btn-group-sm" role="group" aria-label="Second group" style="display: block";>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img6()">00:00</button>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img7()">03:00</button>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img8()">06:00</button>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img9()">09:00</button>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img10()">12:00</button>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img11()">15:00</button>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img12()">18:00</button>
+    <button type="button" class="btn btn-secondary" style="margin-right: -5px;" onclick="load_img13()">21:00</button>
+    <b>
+      <p style="font-size: small; text-align: center; margin-top: 2px;"> Tomorrow</p>
+    </b>
+  </div>
+</div>
+
+
+<!--Location selection-->
+<div class="card bg-light mb-3" style="width: 450px; margin-left:auto; margin-right:auto; margin-top: 30px;">
+  <div class="card-body" style="padding: 15px; padding-bottom: 0px;">
+    <form name="location_form" action="location/" method="GET" onsubmit="return validateForm()" autocomplete="on">
+      <div class="form-row align-items-center"> 
+        <div class="form-group mb-2" style="margin-left:auto;">
+          <label for="location"></label>
+          <input class="form-control" list="locations" name="selected_location" id="location" required="required" placeholder="Enter a town or city." style="width: 300px; text-align: center;">
+            <datalist id="locations">
+              {% for item in location_data %}
+                <option> {{ item.name }}</option>
+              {% endfor %}
+            </datalist>
+          </input>
+        </div>
+        <div class="col-auto my-1" style="margin-right: auto;">
+          <button type="submit" class="btn btn-outline-primary">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  var z = document.getElementById('locations'); //for loop wont work, need to work out a way of asigning datalist value.
+  var y = [];
+  
+  var i;
+  for (i = 0; i < z.options.length; i++) {
+    y.push(z.options[i].value.toUpperCase().replace(/\s/g, ""));
+    console.log(y);
+  }
+  
+  function validateForm() {
+    var x = document.forms["location_form"]["selected_location"].value;
+    x = x.toUpperCase().replace(/\s/g, ""); // need to string blanks
+
+    if (y.includes(x)) { 
+
+    } else {
+      alert("That location is not recognised, please select another.");
+      return false;
+    }
+  }
+</script>
+
+
+<!--Location name-->
+<span style="text-align:center;">
+  <h1 style="font-size: x-large;">Forecast: {{ selected_location }}</h1>
+  <p style="font-size: x-small;">Last updated: {{ last_updated }}</p>
+</span>
+
+
+<!--Weather data-->
+<div class="accordion" id="accordionExample" style="max-width: 60rem;margin-left:auto;margin-right:auto; margin-bottom: 100px;">
+
+  <div class="card" style="text-align:center;">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-block text-align:center" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="padding-top: 0%; padding-bottom: 0%;">
+          <h1 style="font-size: large;"> Today - {{ weather_type.0.0 }} </h1>
+        </button>
+      </h2>
+    </div>
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="margin-left:auto;margin-right:auto;text-align:center">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Temperature</th>
+              <th scope="col">Chance of Rain</th>
+              <th scope="col">Wind Direction</th>
+              <th scope="col">Feels Like Temperature</th>
+              <th scope="col">Humidity</th>
+              <th scope="col">Wind Speed</th>
+            </tr>
+          </thead>
+          <tbody style="text-align:center">
+            <tr>
+              <th scope="row">00:00</th>
+              <td> {{todays_weather_data.0000.T}}&#8451;</td>
+              <td> {{todays_weather_data.0000.Pp}}%</td>
+              <td> {{todays_weather_data.0000.D}} </td>
+              <td> {{todays_weather_data.0000.F}}&#8451;</td>
+              <td> {{todays_weather_data.0000.H}}%</td>
+              <td> {{todays_weather_data.0000.S}} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">03:00</th>
+              <td> {{todays_weather_data.0300.T}}&#8451;</td>
+              <td> {{todays_weather_data.0300.Pp}}%</td>
+              <td> {{todays_weather_data.0300.D}} </td>
+              <td> {{todays_weather_data.0300.F}}&#8451;</td>
+              <td> {{todays_weather_data.0300.H}}%</td>
+              <td> {{todays_weather_data.0300.S}} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">06:00</th>
+              <td> {{todays_weather_data.0600.T}}&#8451;</td>
+              <td> {{todays_weather_data.0600.Pp}}%</td>
+              <td> {{todays_weather_data.0600.D}} </td>
+              <td> {{todays_weather_data.0600.F}}&#8451;</td>
+              <td> {{todays_weather_data.0600.H}}%</td>
+              <td> {{todays_weather_data.0600.S}} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">09:00</th>
+              <td> {{todays_weather_data.0900.T}}&#8451;</td>
+              <td> {{todays_weather_data.0900.Pp}}%</td>
+              <td> {{todays_weather_data.0900.D}} </td>
+              <td> {{todays_weather_data.0900.F}}&#8451;</td>
+              <td> {{todays_weather_data.0900.H}}%</td>
+              <td> {{todays_weather_data.0900.S}} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">12:00</th>
+              <td> {{todays_weather_data.1200.T}}&#8451;</td>
+              <td> {{todays_weather_data.1200.Pp}}%</td>
+              <td> {{todays_weather_data.1200.D}} </td>
+              <td> {{todays_weather_data.1200.F}}&#8451;</td>
+              <td> {{todays_weather_data.1200.H}}%</td>
+              <td> {{todays_weather_data.1200.S}} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">15:00</th>
+              <td> {{todays_weather_data.1500.T}}&#8451;</td>
+              <td> {{todays_weather_data.1500.Pp}}%</td>
+              <td> {{todays_weather_data.1500.D}} </td>
+              <td> {{todays_weather_data.1500.F}}&#8451;</td>
+              <td> {{todays_weather_data.1500.H}}%</td>
+              <td> {{todays_weather_data.1500.S}} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">18:00</th>
+              <td> {{todays_weather_data.1800.T}}&#8451;</td>
+              <td> {{todays_weather_data.1800.Pp}}%</td>
+              <td> {{todays_weather_data.1800.D}} </td>
+              <td> {{todays_weather_data.1800.F}}&#8451;</td>
+              <td> {{todays_weather_data.1800.H}}%</td>
+              <td> {{todays_weather_data.1800.S}} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">21:00</th>
+              <td> {{todays_weather_data.2100.T}}&#8451;</td>
+              <td> {{todays_weather_data.2100.Pp}}%</td>
+              <td> {{todays_weather_data.2100.D}} </td>
+              <td> {{todays_weather_data.2100.F}}&#8451;</td>
+              <td> {{todays_weather_data.2100.H}}%</td>
+              <td> {{todays_weather_data.2100.S}} mph</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-block text-align:center" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="padding-top: 0%; padding-bottom: 0%;">
+          <h1 style="font-size: large;"> {{ next_5_days.1 }} - {{ weather_type.1.0 }} </h1>
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="margin-left:auto;margin-right:auto;text-align:center">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Temperature</th>
+              <th scope="col">Chance of Rain</th>
+              <th scope="col">Wind Direction</th>
+              <th scope="col">Feels Like Temperature</th>
+              <th scope="col">Humidity</th>
+              <th scope="col">Wind Speed</th>
+            </tr>
+          </thead>                  
+          <tbody style="text-align:center">
+            <tr>
+              <th scope="row">00:00</th>
+              <td> {{ weather_data.1.0.T }}&#8451;</td>
+              <td> {{ weather_data.1.0.Pp }}%</td>
+              <td> {{ weather_data.1.0.D }}</td>
+              <td> {{ weather_data.1.0.F }}&#8451;</td>
+              <td> {{ weather_data.1.0.H }}%</td>
+              <td> {{ weather_data.1.0.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">03:00</th>
+              <td> {{ weather_data.1.1.T }}&#8451;</td>
+              <td> {{ weather_data.1.1.Pp }}%</td>
+              <td> {{ weather_data.1.1.D }}</td>
+              <td> {{ weather_data.1.1.F }}&#8451;</td>
+              <td> {{ weather_data.1.1.H }}%</td>
+              <td> {{ weather_data.1.1.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">06:00</th>
+              <td> {{ weather_data.1.2.T }}&#8451;</td>
+              <td> {{ weather_data.1.2.Pp }}%</td>
+              <td> {{ weather_data.1.2.D }}</td>
+              <td> {{ weather_data.1.2.F }}&#8451;</td>
+              <td> {{ weather_data.1.2.H }}%</td>
+              <td> {{ weather_data.1.2.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">09:00</th>
+              <td> {{ weather_data.1.3.T }}&#8451;</td>
+              <td> {{ weather_data.1.3.Pp }}%</td>
+              <td> {{ weather_data.1.3.D }}</td>
+              <td> {{ weather_data.1.3.F }}&#8451;</td>
+              <td> {{ weather_data.1.3.H }}%</td>
+              <td> {{ weather_data.1.3.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">12:00</th>
+              <td> {{ weather_data.1.4.T }}&#8451;</td>
+              <td> {{ weather_data.1.4.Pp }}%</td>
+              <td> {{ weather_data.1.4.D }}</td>
+              <td> {{ weather_data.1.4.F }}&#8451;</td>
+              <td> {{ weather_data.1.4.H }}%</td>
+              <td> {{ weather_data.1.4.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">15:00</th>
+              <td> {{ weather_data.1.5.T }}&#8451;</td>
+              <td> {{ weather_data.1.5.Pp }}%</td>
+              <td> {{ weather_data.1.5.D }}</td>
+              <td> {{ weather_data.1.5.F }}&#8451;</td>
+              <td> {{ weather_data.1.5.H }}%</td>
+              <td> {{ weather_data.1.5.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">18:00</th>
+              <td> {{ weather_data.1.6.T }}&#8451;</td>
+              <td> {{ weather_data.1.6.Pp }}%</td>
+              <td> {{ weather_data.1.6.D }}</td>
+              <td> {{ weather_data.1.6.F }}&#8451;</td>
+              <td> {{ weather_data.1.6.H }}%</td>
+              <td> {{ weather_data.1.6.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">21:00</th>
+              <td> {{ weather_data.1.7.T }}&#8451;</td>
+              <td> {{ weather_data.1.7.Pp }}%</td>
+              <td> {{ weather_data.1.7.D }}</td>
+              <td> {{ weather_data.1.7.F }}&#8451;</td>
+              <td> {{ weather_data.1.7.H }}%</td>
+              <td> {{ weather_data.1.7.S }} mph</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-block text-align:center" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="padding-top: 0%; padding-bottom: 0%;">
+          <h1 style="font-size: large;"> {{ next_5_days.2 }} - {{ weather_type.2.0 }}</h1>
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample" style="margin-left:auto;margin-right:auto;text-align:center">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Temperature</th>
+              <th scope="col">Chance of Rain</th>
+              <th scope="col">Wind Direction</th>
+              <th scope="col">Feels Like Temperature</th>
+              <th scope="col">Humidity</th>
+              <th scope="col">Wind Speed</th>
+            </tr>
+          </thead>                  
+          <tbody style="text-align:center">
+            <tr>
+              <th scope="row">00:00</th>
+              <td> {{ weather_data.2.0.T }}&#8451;</td>
+              <td> {{ weather_data.2.0.Pp }}%</td>
+              <td> {{ weather_data.2.0.D }}</td>
+              <td> {{ weather_data.2.0.F }}&#8451;</td>
+              <td> {{ weather_data.2.0.H }}%</td>
+              <td> {{ weather_data.2.0.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">03:00</th>
+              <td> {{ weather_data.2.1.T }}&#8451;</td>
+              <td> {{ weather_data.2.1.Pp }}%</td>
+              <td> {{ weather_data.2.1.D }}</td>
+              <td> {{ weather_data.2.1.F }}&#8451;</td>
+              <td> {{ weather_data.2.1.H }}%</td>
+              <td> {{ weather_data.2.1.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">06:00</th>
+              <td> {{ weather_data.2.2.T }}&#8451;</td>
+              <td> {{ weather_data.2.2.Pp }}%</td>
+              <td> {{ weather_data.2.2.D }}</td>
+              <td> {{ weather_data.2.2.F }}&#8451;</td>
+              <td> {{ weather_data.2.2.H }}%</td>
+              <td> {{ weather_data.2.2.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">09:00</th>
+              <td> {{ weather_data.2.3.T }}&#8451;</td>
+              <td> {{ weather_data.2.3.Pp }}%</td>
+              <td> {{ weather_data.2.3.D }}</td>
+              <td> {{ weather_data.2.3.F }}&#8451;</td>
+              <td> {{ weather_data.2.3.H }}%</td>
+              <td> {{ weather_data.2.3.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">12:00</th>
+              <td> {{ weather_data.2.4.T }}&#8451;</td>
+              <td> {{ weather_data.2.4.Pp }}%</td>
+              <td> {{ weather_data.2.4.D }}</td>
+              <td> {{ weather_data.2.4.F }}&#8451;</td>
+              <td> {{ weather_data.2.4.H }}%</td>
+              <td> {{ weather_data.2.4.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">15:00</th>
+              <td> {{ weather_data.2.5.T }}&#8451;</td>
+              <td> {{ weather_data.2.5.Pp }}%</td>
+              <td> {{ weather_data.2.5.D }}</td>
+              <td> {{ weather_data.2.5.F }}&#8451;</td>
+              <td> {{ weather_data.2.5.H }}%</td>
+              <td> {{ weather_data.2.5.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">18:00</th>
+              <td> {{ weather_data.2.6.T }}&#8451;</td>
+              <td> {{ weather_data.2.6.Pp }}%</td>
+              <td> {{ weather_data.2.6.D }}</td>
+              <td> {{ weather_data.2.6.F }}&#8451;</td>
+              <td> {{ weather_data.2.6.H }}%</td>
+              <td> {{ weather_data.2.6.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">21:00</th>
+              <td> {{ weather_data.2.7.T }}&#8451;</td>
+              <td> {{ weather_data.2.7.Pp }}%</td>
+              <td> {{ weather_data.2.7.D }}</td>
+              <td> {{ weather_data.2.7.F }}&#8451;</td>
+              <td> {{ weather_data.2.7.H }}%</td>
+              <td> {{ weather_data.2.7.S }} mph</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingFour">
+      <h2 class="mb-0">
+        <button class="btn btn-block text-align:center" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style="padding-top: 0%; padding-bottom: 0%;">
+          <h1 style="font-size: large;"> {{ next_5_days.3 }} - {{ weather_type.3.0 }} </h1>
+        </button>
+      </h2>
+    </div>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample" style="margin-left:auto;margin-right:auto;text-align:center">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Temperature</th>
+              <th scope="col">Chance of Rain</th>
+              <th scope="col">Wind Direction</th>
+              <th scope="col">Feels Like Temperature</th>
+              <th scope="col">Humidity</th>
+              <th scope="col">Wind Speed</th>
+            </tr>
+          </thead>                  
+          <tbody style="text-align:center">
+            <tr>
+              <th scope="row">00:00</th>
+              <td> {{ weather_data.3.0.T }}&#8451;</td>
+              <td> {{ weather_data.3.0.Pp }}%</td>
+              <td> {{ weather_data.3.0.D }}</td>
+              <td> {{ weather_data.3.0.F }}&#8451;</td>
+              <td> {{ weather_data.3.0.H }}%</td>
+              <td> {{ weather_data.3.0.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">03:00</th>
+              <td> {{ weather_data.3.1.T }}&#8451;</td>
+              <td> {{ weather_data.3.1.Pp }}%</td>
+              <td> {{ weather_data.3.1.D }}</td>
+              <td> {{ weather_data.3.1.F }}&#8451;</td>
+              <td> {{ weather_data.3.1.H }}%</td>
+              <td> {{ weather_data.3.1.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">06:00</th>
+              <td> {{ weather_data.3.2.T }}&#8451;</td>
+              <td> {{ weather_data.3.2.Pp }}%</td>
+              <td> {{ weather_data.3.2.D }}</td>
+              <td> {{ weather_data.3.2.F }}&#8451;</td>
+              <td> {{ weather_data.3.2.H }}%</td>
+              <td> {{ weather_data.3.2.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">09:00</th>
+              <td> {{ weather_data.3.3.T }}&#8451;</td>
+              <td> {{ weather_data.3.3.Pp }}%</td>
+              <td> {{ weather_data.3.3.D }}</td>
+              <td> {{ weather_data.3.3.F }}&#8451;</td>
+              <td> {{ weather_data.3.3.H }}%</td>
+              <td> {{ weather_data.3.3.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">12:00</th>
+              <td> {{ weather_data.3.4.T }}&#8451;</td>
+              <td> {{ weather_data.3.4.Pp }}%</td>
+              <td> {{ weather_data.3.4.D }}</td>
+              <td> {{ weather_data.3.4.F }}&#8451;</td>
+              <td> {{ weather_data.3.4.H }}%</td>
+              <td> {{ weather_data.3.4.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">15:00</th>
+              <td> {{ weather_data.3.5.T }}&#8451;</td>
+              <td> {{ weather_data.3.5.Pp }}%</td>
+              <td> {{ weather_data.3.5.D }}</td>
+              <td> {{ weather_data.3.5.F }}&#8451;</td>
+              <td> {{ weather_data.3.5.H }}%</td>
+              <td> {{ weather_data.3.5.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">18:00</th>
+              <td> {{ weather_data.3.6.T }}&#8451;</td>
+              <td> {{ weather_data.3.6.Pp }}%</td>
+              <td> {{ weather_data.3.6.D }}</td>
+              <td> {{ weather_data.3.6.F }}&#8451;</td>
+              <td> {{ weather_data.3.6.H }}%</td>
+              <td> {{ weather_data.3.6.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">21:00</th>
+              <td> {{ weather_data.3.7.T }}&#8451;</td>
+              <td> {{ weather_data.3.7.Pp }}%</td>
+              <td> {{ weather_data.3.7.D }}</td>
+              <td> {{ weather_data.3.7.F }}&#8451;</td>
+              <td> {{ weather_data.3.7.H }}%</td>
+              <td> {{ weather_data.3.7.S }} mph</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingFive">
+      <h2 class="mb-0">
+        <button class="btn btn-block text-align:center"type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" style="padding-top: 0%; padding-bottom: 0%;">
+          <h1 style="font-size: large;"> {{ next_5_days.4 }} - {{ weather_type.4.0 }} </h1>
+        </button>
+      </h2>
+    </div>
+    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample" style="margin-left:auto;margin-right:auto;text-align:center">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Temperature</th>
+              <th scope="col">Chance of Rain</th>
+              <th scope="col">Wind Direction</th>
+              <th scope="col">Feels Like Temperature</th>
+              <th scope="col">Humidity</th>
+              <th scope="col">Wind Speed</th>
+            </tr>
+          </thead>                  
+          <tbody style="text-align:center">
+            <tr>
+              <th scope="row">00:00</th>
+              <td> {{ weather_data.4.0.T }}&#8451;</td>
+              <td> {{ weather_data.4.0.Pp }}%</td>
+              <td> {{ weather_data.4.0.D }}</td>
+              <td> {{ weather_data.4.0.F }}&#8451;</td>
+              <td> {{ weather_data.4.0.H }}%</td>
+              <td> {{ weather_data.4.0.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">03:00</th>
+              <td> {{ weather_data.4.1.T }}&#8451;</td>
+              <td> {{ weather_data.4.1.Pp }}%</td>
+              <td> {{ weather_data.4.1.D }}</td>
+              <td> {{ weather_data.4.1.F }}&#8451;</td>
+              <td> {{ weather_data.4.1.H }}%</td>
+              <td> {{ weather_data.4.1.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">06:00</th>
+              <td> {{ weather_data.4.2.T }}&#8451;</td>
+              <td> {{ weather_data.4.2.Pp }}%</td>
+              <td> {{ weather_data.4.2.D }}</td>
+              <td> {{ weather_data.4.2.F }}&#8451;</td>
+              <td> {{ weather_data.4.2.H }}%</td>
+              <td> {{ weather_data.4.2.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">09:00</th>
+              <td> {{ weather_data.4.3.T }}&#8451;</td>
+              <td> {{ weather_data.4.3.Pp }}%</td>
+              <td> {{ weather_data.4.3.D }}</td>
+              <td> {{ weather_data.4.3.F }}&#8451;</td>
+              <td> {{ weather_data.4.3.H }}%</td>
+              <td> {{ weather_data.4.3.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">12:00</th>
+              <td> {{ weather_data.4.4.T }}&#8451;</td>
+              <td> {{ weather_data.4.4.Pp }}%</td>
+              <td> {{ weather_data.4.4.D }}</td>
+              <td> {{ weather_data.4.4.F }}&#8451;</td>
+              <td> {{ weather_data.4.4.H }}%</td>
+              <td> {{ weather_data.4.4.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">15:00</th>
+              <td> {{ weather_data.4.5.T }}&#8451;</td>
+              <td> {{ weather_data.4.5.Pp }}%</td>
+              <td> {{ weather_data.4.5.D }}</td>
+              <td> {{ weather_data.4.5.F }}&#8451;</td>
+              <td> {{ weather_data.4.5.H }}%</td>
+              <td> {{ weather_data.4.5.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">18:00</th>
+              <td> {{ weather_data.4.6.T }}&#8451;</td>
+              <td> {{ weather_data.4.6.Pp }}%</td>
+              <td> {{ weather_data.4.6.D }}</td>
+              <td> {{ weather_data.4.6.F }}&#8451;</td>
+              <td> {{ weather_data.4.6.H }}%</td>
+              <td> {{ weather_data.4.6.S }} mph</td>
+            </tr>
+            <tr>
+              <th scope="row">21:00</th>
+              <td> {{ weather_data.4.7.T }}&#8451;</td>
+              <td> {{ weather_data.4.7.Pp }}%</td>
+              <td> {{ weather_data.4.7.D }}</td>
+              <td> {{ weather_data.4.7.F }}&#8451;</td>
+              <td> {{ weather_data.4.7.H }}%</td>
+              <td> {{ weather_data.4.7.S }} mph</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Footer section -->
+<div class="jumbotron jumbotron-fluid bg-dark text-white" style=" margin-bottom: -35px; width: 100%; ">
+  <div class="container">
+    <div class="row">
+      <div class="col-8">
+        <h1 style="font-size: large;"><u>About this website</u></h1>
+        <p style="font-size: medium;">
+          (WEBSITE NAME) provides weather forecasts for over 5000 locations across the United Kingdom. 
+          All data is provided courtesy of the DataPoint service which is offered by the Met Office and is updated every 3 hours.  
+          <br>
+          <br>
+          Get in touch - jm.enquiries@icloud.com
+        </p>
+      </div>
+      <div class="col">
+        <img src="/media/logo.jpg" width="200px" height="200px" style="float: right;">
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
